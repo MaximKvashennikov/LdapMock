@@ -26,8 +26,8 @@ docker-compose up --build
 
 ## Доступ к серверу
 
-Сервер будет доступен на порту **8389**:  
-[http://localhost:8389/docs](http://localhost:8389/docs) (Swagger UI)
+Сервер будет доступен на порту **8000**:  
+[http://localhost:8000/docs](http://localhost:8389/docs) (Swagger UI)
 
 ## Использование API
 
@@ -56,11 +56,5 @@ GET /entries/?base_dn=dc=example,dc=com
 ```bash
 
 DELETE /entries/cn=user1,dc=example,dc=com
-```
-
-### Очистка всех записей
-```bash
-
-POST /clear/
 ```
 

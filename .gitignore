@@ -1,0 +1,13 @@
+# JetBrains IDE (e.g., PyCharm) files
+.idea/
+*.iml
+*.ipr
+*.iws
+*.log
+
+# Virtual environment
+venv/
+venv*/
+ENV/
+env/
+*.venv

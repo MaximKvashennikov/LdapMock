@@ -1,50 +1,32 @@
 from fastapi import FastAPI, HTTPException
-from src.ldap_mock import LdapMock
-from src.logger import setup_logger
+from src.ldap_service import LdapService
 from src.models import LdapEntry
-
+from src.config.logger import setup_logger
 
 logger = setup_logger(__name__)
-
 app = FastAPI()
-ldap = LdapMock()
+
+ldap = LdapService()
 
 @app.post("/entries/")
 def add_entry(entry: LdapEntry):
     try:
         ldap.add_entry(entry.dn, entry.attributes)
-        logger.info(f"Entry added: {entry.dn} with attributes: {entry.attributes}")
-        return {"message": "Entry added"}
+        return {"message": f"Entry added: {entry.dn}"}
     except Exception as e:
-        logger.error(f"Failed to add entry {entry.dn}: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/entries/")
 def search_entries(base_dn: str, query: str = "(objectClass=*)"):
     try:
-        results = ldap.search(base_dn, query)
-        logger.info(f"Searched entries under base_dn: {base_dn} with query: {query}. Results: {results}")
-        return results
+        return ldap.search(base_dn, query)
     except Exception as e:
-        logger.error(f"Search failed for base_dn: {base_dn} with query: {query}: {str(e)}")
-        raise HTTPException(status_code=400, detail="Search operation failed")
+        raise HTTPException(status_code=400, detail=f"Search operation failed: {e}")
 
 @app.delete("/entries/{dn}")
 def delete_entry(dn: str):
     try:
         ldap.delete_entry(dn)
-        logger.info(f"Entry deleted: {dn}")
-        return {"message": "Entry deleted"}
+        return {"message": f"Entry deleted: {dn}"}
     except Exception as e:
-        logger.error(f"Failed to delete entry {dn}: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
-
-@app.post("/clear/")
-def clear_entries():
-    try:
-        ldap.clear()
-        logger.warning("All entries cleared")
-        return {"message": "All entries cleared"}
-    except Exception as e:
-        logger.error(f"Failed to clear entries: {str(e)}")
-        raise HTTPException(status_code=400, detail="Failed to clear entries")
