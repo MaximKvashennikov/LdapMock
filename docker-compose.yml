@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ldap-mock:
+    build: .
+    ports:
+      - "8389:8389"
+    environment:
+      - LDAP_MOCK_ROOT=dc=example,dc=com
+      - LDAP_ADMIN_USER=cn=admin
+      - LDAP_ADMIN_PASSWORD=admin123
+      - LDAP_MOCK_PORT=8389
+      - LDAP_MOCK_HOST=0.0.0.0
+      - LDAP_MOCK_DEBUG=true
+      - LDAP_MOCK_LOG_LEVEL=INFO
+      - LDAP_MOCK_INITIAL_DATA=/app/initial_data.json
+    volumes:
+      - ./initial_data.json:/app/initial_data.json
+      - ./src:/app/src
+    restart: unless-stopped
