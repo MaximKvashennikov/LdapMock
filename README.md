@@ -1,4 +1,6 @@
 # LDAP Mock Server с FastAPI
+> Источник: https://github.com/osixia/docker-openldap
+
 
 ## Обзор
 

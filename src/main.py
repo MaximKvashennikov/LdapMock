@@ -4,8 +4,8 @@ from src.models import LdapEntry
 from src.config.logger import setup_logger
 
 logger = setup_logger(__name__)
-app = FastAPI()
 
+app = FastAPI()
 ldap = LdapService()
 
 @app.post("/entries/")

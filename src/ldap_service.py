@@ -7,7 +7,7 @@ logger = setup_logger(__name__)
 class LdapService:
     def __init__(self):
         self.server = Server(
-            settings.ldap_mock_server_host,
+            host=settings.ldap_mock_server_host,
             port=settings.ldap_mock_port,
             get_info=ALL
         )

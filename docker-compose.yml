@@ -5,7 +5,8 @@ services:
     image: osixia/openldap:1.5.0
     container_name: ldap-mock
     ports:
-      - "389:389"  # LDAP порт
+      - "389:389"
+      - "636:636" # LDAPS = LDAP + SSL/TLS шифрование
     environment:
       LDAP_ORGANISATION: "Example Org"
       LDAP_DOMAIN: "example.com"
@@ -13,6 +14,18 @@ services:
     volumes:
       - ./ldap_data:/var/lib/ldap
       - ./slapd_config:/etc/ldap/slapd.d
+    restart: unless-stopped
+
+  ldap_web_admin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin
+    ports:
+      - "8080:80"
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: openldap
+      PHPLDAPADMIN_HTTPS: "false"
+    depends_on:
+      - openldap
     restart: unless-stopped
 
   ldap-api:
