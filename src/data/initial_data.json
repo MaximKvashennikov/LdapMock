@@ -1,0 +1,134 @@
+{
+  "groups": [
+    {
+      "dn": "ou=groups,dc=example,dc=com",
+      "objectClass": ["organizationalUnit"],
+      "ou": "groups"
+    },
+    {
+      "dn": "cn=admins,ou=groups,dc=example,dc=com",
+      "objectClass": ["groupOfNames"],
+      "cn": "admins",
+      "member": [
+        "uid=admin_user,ou=people,dc=example,dc=com"
+      ],
+      "description": "Administrators group"
+    },
+    {
+      "dn": "cn=developers,ou=groups,dc=example,dc=com",
+      "objectClass": ["groupOfNames"],
+      "cn": "developers",
+      "member": [
+        "uid=dev1,ou=people,dc=example,dc=com",
+        "uid=dev2,ou=people,dc=example,dc=com"
+      ],
+      "description": "Developers team"
+    },
+    {
+      "dn": "cn=managers,ou=groups,dc=example,dc=com",
+      "objectClass": ["groupOfNames"],
+      "cn": "managers",
+      "member": [
+        "uid=manager1,ou=people,dc=example,dc=com"
+      ],
+      "description": "Management team"
+    },
+    {
+      "dn": "cn=accounting,ou=groups,dc=example,dc=com",
+      "objectClass": ["groupOfNames"],
+      "cn": "accounting",
+      "member": [
+        "uid=accountant1,ou=people,dc=example,dc=com",
+        "uid=accountant2,ou=people,dc=example,dc=com"
+      ],
+      "description": "Accounting department"
+    }
+  ],
+  "users": [
+    {
+      "dn": "ou=people,dc=example,dc=com",
+      "objectClass": ["organizationalUnit"],
+      "ou": "people"
+    },
+    {
+      "dn": "uid=admin_user,ou=people,dc=example,dc=com",
+      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "uid": "admin_user",
+      "cn": "Admin User",
+      "sn": "User",
+      "givenName": "Admin",
+      "mail": "admin@example.com",
+      "userPassword": "secret123",
+      "uidNumber": "1000",
+      "gidNumber": "100",
+      "homeDirectory": "/home/admin_user"
+    },
+    {
+      "dn": "uid=dev1,ou=people,dc=example,dc=com",
+      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "uid": "dev1",
+      "cn": "Developer One",
+      "sn": "One",
+      "givenName": "Developer",
+      "mail": "dev1@example.com",
+      "userPassword": "dev123",
+      "uidNumber": "1001",
+      "gidNumber": "101",
+      "homeDirectory": "/home/dev1"
+    },
+    {
+      "dn": "uid=dev2,ou=people,dc=example,dc=com",
+      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "uid": "dev2",
+      "cn": "Developer Two",
+      "sn": "Two",
+      "givenName": "Developer",
+      "mail": "dev2@example.com",
+      "userPassword": "dev123",
+      "uidNumber": "1002",
+      "gidNumber": "101",
+      "homeDirectory": "/home/dev2"
+    },
+    {
+      "dn": "uid=manager1,ou=people,dc=example,dc=com",
+      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "uid": "manager1",
+      "cn": "Manager One",
+      "sn": "One",
+      "givenName": "Manager",
+      "mail": "manager@example.com",
+      "userPassword": "mgr123",
+      "uidNumber": "1003",
+      "gidNumber": "102",
+      "homeDirectory": "/home/manager1"
+    },
+    {
+      "dn": "uid=accountant1,ou=people,dc=example,dc=com",
+      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "uid": "accountant1",
+      "cn": "Accountant One",
+      "sn": "One",
+      "givenName": "Accountant",
+      "mail": "account1@example.com",
+      "userPassword": "acc123",
+      "uidNumber": "1004",
+      "gidNumber": "103",
+      "homeDirectory": "/home/accountant1",
+      "description": "Senior accountant"
+    },
+    {
+      "dn": "uid=accountant2,ou=people,dc=example,dc=com",
+      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "uid": "accountant2",
+      "cn": "Accountant Two",
+      "sn": "Two",
+      "givenName": "Accountant",
+      "mail": "account2@example.com",
+      "userPassword": "acc123",
+      "uidNumber": "1005",
+      "gidNumber": "103",
+      "homeDirectory": "/home/accountant2",
+      "description": "Junior accountant"
+    }
+  ]
+}

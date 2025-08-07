@@ -1,18 +1,25 @@
-# LDAP Mock Server с FastAPI
-> Источник: https://github.com/osixia/docker-openldap
+# LDAP Mock Server with FastAPI and OpenLDAP
 
+> Источник OpenLDAP: https://github.com/osixia/docker-openldap
 
 ## Обзор
 
-Проект предоставляет мок-сервер LDAP с REST API для управления, упакованный в Docker. Используется для тестирования приложений, работающих с LDAP, без реального сервера.
+Проект предоставляет полноценную LDAP-среду для разработки и тестирования, включающую:
+- 🐳 OpenLDAP сервер в Docker
+- 🖥️ Веб-интерфейс phpLDAPadmin
+- 🚀 FastAPI для программного управления LDAP
 
-## Возможности
+## Архитектура
 
-- 🚀 Эмуляция LDAP через `ldap3.MOCK_SYNC`
-- 📡 Управление через REST API (CRUD операции)
-- 🐳 Готовая Docker-сборка
-- 🔄 Поддержка Python 3.10+
-- 📊 Импорт/экспорт данных в JSON
+Сервисы:
+1. **openldap** - Основной LDAP сервер (osixia/openldap:1.5.0)
+   - Порт: 389 (LDAP), 636 (LDAPS)
+   - Домен: example.com
+2. **ldap_web_admin** - Веб-интерфейс phpLDAPadmin
+   - Порт: 8080
+3. **ldap-api** - FastAPI для управления LDAP
+   - Порт: 8000
+   - Поддерживает CRUD операции через REST
 
 ## Быстрый старт
 
@@ -25,12 +32,22 @@
 
 docker-compose up --build
 ```
-
 ## Доступ к серверу
 
-Сервер будет доступен на порту **8000**:  
-[http://localhost:8000/docs](http://localhost:8389/docs) (Swagger UI)
+## OpenLDAP
+- **LDAP**: `ldap://localhost:389`
+- **Root DN**: `dc=example,dc=com`
+- **Admin**: `cn=admin,dc=example,dc=com`
+- **Password**: `admin`
 
+## phpLDAPadmin
+- **URL**: [http://localhost:8080](http://localhost:8080)
+- **Login**: `cn=admin,dc=example,dc=com`
+- **Password**: `admin`
+
+## FastAPI
+- **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **REST API**: [http://localhost:8000](http://localhost:8000)
 ## Использование API
 
 ### Добавление записи

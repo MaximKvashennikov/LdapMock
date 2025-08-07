@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from src.ldap_service import LdapService
-from src.models import LdapEntry
+from src.data.models import LdapEntry
 from src.config.logger import setup_logger
 
 logger = setup_logger(__name__)

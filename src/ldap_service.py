@@ -1,8 +1,12 @@
+from pathlib import Path
+
 from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
 from src.config.config import settings
 from src.config.logger import setup_logger
+from src.data.ldap_initializer import LdapDataInitializer
 
 logger = setup_logger(__name__)
+
 
 class LdapService:
     def __init__(self):
@@ -18,6 +22,12 @@ class LdapService:
             auto_bind=True
         )
         logger.info("Connected to LDAP server")
+        self.initialize_test_data()
+
+    def initialize_test_data(self, json_path: Path = settings.ldap_initial_data) -> dict:
+        """Инициализация тестовыми данными"""
+        initializer = LdapDataInitializer(self.conn, data_path=json_path)
+        return initializer.initialize_from_file()
 
     def add_entry(self, dn: str, attributes: dict) -> None:
         logger.debug(f"Adding entry: {dn}")
@@ -44,12 +54,12 @@ class LdapService:
         return []
 
     def delete_entry(self, dn: str) -> None:
-        logger.info(f"Deleting entry: {dn}")
+        logger.warning(f"Deleting entry: {dn}")
         try:
             self.conn.delete(dn)
             if self.conn.result['result'] != 0:
                 raise Exception(self.conn.result['message'])
-            logger.info(f"Deleted entry: {dn}")
+            logger.warning(f"Deleted entry: {dn}")
         except Exception as e:
             logger.error(f"Failed to delete entry {dn}: {e}")
             raise
