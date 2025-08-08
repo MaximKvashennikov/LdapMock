@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
+from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES, AUTO_BIND_TLS_BEFORE_BIND
 from src.config.config import settings
 from src.config.logger import setup_logger
 from src.data.ldap_initializer import LdapDataInitializer
@@ -13,14 +13,18 @@ class LdapService:
         self.server = Server(
             host=settings.ldap_mock_server_host,
             port=settings.ldap_mock_port,
-            get_info=ALL
+            get_info=ALL,
+            use_ssl=True,
+            connect_timeout=50
         )
         self.conn = Connection(
             self.server,
             user=f"{settings.ldap_admin_user},{settings.ldap_mock_root}",
             password=settings.ldap_admin_password,
+            lazy=True,
             auto_bind=True
         )
+
         logger.info("Connected to LDAP server")
         self.initialize_test_data()
 

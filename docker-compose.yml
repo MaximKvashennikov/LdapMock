@@ -4,11 +4,15 @@ services:
     container_name: ldap-mock
     ports:
       - "389:389"
-      - "636:636" # LDAPS = LDAP + SSL/TLS шифрование
+      - "636:636" # LDAPS = LDAP + SSL/TLS
     environment:
       LDAP_ORGANISATION: "Example Org"
       LDAP_DOMAIN: "example.com"
       LDAP_ADMIN_PASSWORD: "admin"
+      LDAP_TLS_VERIFY_CLIENT: "never"
+      LDAP_TLS_CRT_FILENAME: "ldap.crt"
+      LDAP_TLS_KEY_FILENAME: "ldap.key"
+      LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
     volumes:
       - ./ldap_data:/var/lib/ldap
       - ./slapd_config:/etc/ldap/slapd.d
@@ -37,7 +41,7 @@ services:
       LDAP_ADMIN_USER: cn=admin
       LDAP_ADMIN_PASSWORD: admin
       LDAP_MOCK_SERVER_HOST: openldap
-      LDAP_MOCK_PORT: 389
+      LDAP_MOCK_PORT: 636
     volumes:
       - ./src:/app/src
     depends_on:
