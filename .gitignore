@@ -1,9 +1,15 @@
 # JetBrains IDE (e.g., PyCharm) files
 .idea/
+__pycache__
+*.pyc
 *.iml
 *.ipr
 *.iws
 *.log
+
+ldap_data
+ldap_certs
+slapd_config
 
 # Virtual environment
 venv/

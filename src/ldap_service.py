@@ -67,3 +67,6 @@ class LdapService:
         except Exception as e:
             logger.error(f"Failed to delete entry {dn}: {e}")
             raise
+
+
+ldap = LdapService()
