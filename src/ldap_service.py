@@ -25,7 +25,7 @@ class LdapService:
             auto_bind=True
         )
 
-        logger.info("Connected to LDAP server")
+        logger.info("Start initialize test data")
         self.initialize_test_data()
 
     def initialize_test_data(self, json_path: Path = settings.ldap_initial_data) -> dict:
@@ -67,6 +67,3 @@ class LdapService:
         except Exception as e:
             logger.error(f"Failed to delete entry {dn}: {e}")
             raise
-
-
-ldap = LdapService()
