@@ -1,6 +1,11 @@
 from pathlib import Path
 
-from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES, AUTO_BIND_TLS_BEFORE_BIND
+from ldap3 import (
+    Server,
+    Connection,
+    ALL,
+    ALL_ATTRIBUTES
+)
 from src.config.config import settings
 from src.config.logger import setup_logger
 from src.data.ldap_initializer import LdapDataInitializer
@@ -55,7 +60,7 @@ class LdapService:
             logger.error(f"Failed to add entry {dn}: {e}")
             raise
 
-    def search(self, base_dn: str, query: str = "(objectClass=*)"):
+    def search(self, base_dn: str, query: str = "(objectClass=*)") -> list[dict]:
         """
         Выполняет поиск записей в LDAP-сервере.
 
@@ -74,6 +79,29 @@ class LdapService:
             ]
         logger.warning(f"No entries found for base DN: {base_dn}, filter: {query}")
         return []
+
+    def modify_entry(self, dn: str, changes: dict) -> None:
+        """
+        Модифицирует существующую запись в LDAP.
+
+        :param dn: Distinguished Name изменяемой записи
+        :param changes: Словарь с изменениями в формате:
+            {
+                'attribute1': [('MODIFY_REPLACE', ['new_value'])],
+                'attribute2': [('MODIFY_DELETE', [])],
+                'attribute3': [('MODIFY_ADD', ['value1', 'value2'])]
+            }
+
+        """
+        logger.info(f"Modifying entry: {dn} with changes: {changes}")
+        try:
+            self.conn.modify(dn, changes)
+            if self.conn.result['result'] != 0:
+                raise Exception(self.conn.result['message'])
+            logger.info(f"Successfully modified entry: {dn}")
+        except Exception as e:
+            logger.error(f"Failed to modify entry {dn}: {e}")
+            raise
 
     def delete_entry(self, dn: str) -> None:
         """

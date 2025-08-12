@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from contextlib import asynccontextmanager
 from src.data.connect_ldap_with_retry import connect_ldap_with_retry
-from src.data.models import LdapEntry
+from src.data.models import LdapEntry, LdapModifyRequest
 from src.config.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -50,6 +50,20 @@ def search_entries(request: Request, base_dn: str, query: str = "(objectClass=*)
         return ldap.search(base_dn, query)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Search operation failed: {e}")
+
+
+@app.patch(
+    "/entries/{dn}",
+    summary="Модификация LDAP-записи",
+    response_description="Сообщение об успешном изменении",
+)
+def modify_entry(request: Request, dn: str, changes: LdapModifyRequest):
+    ldap = request.app.state.ldap
+    try:
+        ldap.modify_entry(dn, changes.attributes)
+        return {"message": f"Entry modified: {dn}"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.delete(

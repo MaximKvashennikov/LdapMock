@@ -30,7 +30,7 @@
 ### Запуск
 ```bash
 
-docker-compose up --build
+docker-compose up
 ```
 ## Доступ к серверу
 
@@ -70,7 +70,19 @@ Content-Type: application/json
 
 GET /entries/?base_dn=dc=example,dc=com
 ```
+### Изменение записи
+```bash
 
+PATCH /entries/cn=testuser3,dc=example,dc=com
+Content-Type: application/json
+
+{
+   "attributes": {
+       "sn": [["MODIFY_REPLACE", ["REPLACED Test User336!!!"]]],
+       "telephoneNumber": [["MODIFY_ADD", ["+1234567890"]]]
+   }
+}
+```
 ### Удаление записи
 ```bash
 

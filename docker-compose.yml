@@ -12,10 +12,12 @@ services:
       LDAP_TLS_VERIFY_CLIENT: "never"
     healthcheck:
       test: ["CMD-SHELL", "pidof slapd > /dev/null && ldapsearch -x -H ldaps://localhost -b '' -s base"]
-      interval: 10s
+      interval: 20s
       timeout: 5s
       retries: 10
-
+    logging:
+      options:
+        max-size: "50m"
     volumes:
       - ./ldap_data:/var/lib/ldap
       - ./slapd_config:/etc/ldap/slapd.d
