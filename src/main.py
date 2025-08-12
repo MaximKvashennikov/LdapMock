@@ -9,14 +9,27 @@ logger = setup_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """
+    Контекстный менеджер для управления жизненным циклом приложения.
+    Инициализирует подключение к LDAP-серверу перед запуском приложения.
+    """
     ldap = await connect_ldap_with_retry()
     app.state.ldap = ldap
     yield
 
-app = FastAPI(lifespan=lifespan)
+
+app = FastAPI(
+    lifespan=lifespan,
+    title="LDAP Management API",
+    description="API для управления записями в LDAP-сервере",
+)
 
 
-@app.post("/entries/")
+@app.post(
+    "/entries/",
+    summary="Добавить новую запись в LDAP",
+    response_description="Сообщение об успешном добавлении",
+)
 def add_entry(request: Request, entry: LdapEntry):
     ldap = request.app.state.ldap
     try:
@@ -26,7 +39,11 @@ def add_entry(request: Request, entry: LdapEntry):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@app.get("/entries/")
+@app.get(
+    "/entries/",
+    summary="Поиск записей в LDAP",
+    response_description="Список найденных записей"
+)
 def search_entries(request: Request, base_dn: str, query: str = "(objectClass=*)"):
     ldap = request.app.state.ldap
     try:
@@ -35,7 +52,11 @@ def search_entries(request: Request, base_dn: str, query: str = "(objectClass=*)
         raise HTTPException(status_code=400, detail=f"Search operation failed: {e}")
 
 
-@app.delete("/entries/{dn}")
+@app.delete(
+    "/entries/{dn}",
+    summary="Удалить запись из LDAP",
+    response_description="Сообщение об успешном удалении",
+)
 def delete_entry(request: Request, dn: str):
     ldap = request.app.state.ldap
     try:

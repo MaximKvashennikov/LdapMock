@@ -29,11 +29,22 @@ class LdapService:
         self.initialize_test_data()
 
     def initialize_test_data(self, json_path: Path = settings.ldap_initial_data) -> dict:
-        """Инициализация тестовыми данными"""
+        """
+        Инициализирует LDAP-сервер тестовыми данными из JSON-файла.
+
+        :param json_path: Путь к JSON-файлу с тестовыми данными
+        :return: Словарь с результатами инициализации
+        """
         initializer = LdapDataInitializer(self.conn, data_path=json_path)
         return initializer.initialize_from_file()
 
     def add_entry(self, dn: str, attributes: dict) -> None:
+        """
+        Добавляет новую запись в LDAP-сервер.
+
+        :param dn: Distinguished Name (DN) новой записи
+        :param attributes: Атрибуты новой записи
+        """
         logger.debug(f"Adding entry: {dn}")
         try:
             self.conn.add(dn, attributes=attributes)
@@ -45,6 +56,13 @@ class LdapService:
             raise
 
     def search(self, base_dn: str, query: str = "(objectClass=*)"):
+        """
+        Выполняет поиск записей в LDAP-сервере.
+
+        :param base_dn: Базовый DN для поиска
+        :param query: Фильтр поиска (по умолчанию ищет все объекты)
+        :return: Список найденных записей с их атрибутами
+        """
         logger.info(f"Searching in base DN: {base_dn} with filter: {query}")
         if self.conn.search(base_dn, query, attributes=ALL_ATTRIBUTES):
             return [
@@ -58,6 +76,11 @@ class LdapService:
         return []
 
     def delete_entry(self, dn: str) -> None:
+        """
+        Удаляет запись из LDAP-сервера.
+
+        :param dn: Distinguished Name (DN) записи для удаления
+        """
         logger.warning(f"Deleting entry: {dn}")
         try:
             self.conn.delete(dn)
