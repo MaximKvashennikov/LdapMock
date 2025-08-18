@@ -1,7 +1,10 @@
 services:
   openldap:
-    image: osixia/openldap:1.5.0
+    build:
+      context: .
+      dockerfile: Dockerfile.openldap
     container_name: ldap-mock
+    command: ["--copy-service", "--loglevel", "debug"]
     ports:
       - "389:389"
       - "636:636" # LDAPS = LDAP + SSL/TLS
@@ -55,9 +58,3 @@ services:
       openldap:
         condition: service_healthy
     restart: unless-stopped
-
-
-volumes:
-  ldap_data:
-  ldap_certs:
-  slapd_config:
