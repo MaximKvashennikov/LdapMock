@@ -60,16 +60,19 @@ class LdapService:
             logger.error(f"Failed to add entry {dn}: {e}")
             raise
 
-    def search(self, base_dn: str, query: str = "(objectClass=*)") -> list[dict]:
+    def search(self, base_dn: str, query: str = "(objectClass=*)", attributes: list = None) -> list[dict]:
         """
         Выполняет поиск записей в LDAP-сервере.
 
         :param base_dn: Базовый DN для поиска
         :param query: Фильтр поиска (по умолчанию ищет все объекты)
+        :param attributes: Список запрашиваемых атрибутов (None = все атрибуты)
         :return: Список найденных записей с их атрибутами
         """
-        logger.info(f"Searching in base DN: {base_dn} with filter: {query}")
-        if self.conn.search(base_dn, query, attributes=ALL_ATTRIBUTES):
+        logger.info(f"Searching in base DN: {base_dn} with filter: {query}, attributes: {attributes}")
+        search_attributes = attributes if attributes else ALL_ATTRIBUTES
+
+        if self.conn.search(base_dn, query, attributes=search_attributes):
             return [
                 {
                     "dn": entry.entry_dn,

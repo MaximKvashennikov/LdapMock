@@ -7,18 +7,18 @@
     },
     {
       "dn": "cn=admins,ou=groups,dc=example,dc=com",
-      "objectClass": ["groupOfNames"],
+      "objectClass": ["groupOfUniqueNames"],
       "cn": "admins",
-      "member": [
+      "uniqueMember": [
         "uid=admin_user,ou=people,dc=example,dc=com"
       ],
       "description": "Administrators group"
     },
     {
       "dn": "cn=developers,ou=groups,dc=example,dc=com",
-      "objectClass": ["groupOfNames"],
+      "objectClass": ["groupOfUniqueNames"],
       "cn": "developers",
-      "member": [
+      "uniqueMember": [
         "uid=dev1,ou=people,dc=example,dc=com",
         "uid=dev2,ou=people,dc=example,dc=com"
       ],
@@ -26,18 +26,18 @@
     },
     {
       "dn": "cn=managers,ou=groups,dc=example,dc=com",
-      "objectClass": ["groupOfNames"],
+      "objectClass": ["groupOfUniqueNames"],
       "cn": "managers",
-      "member": [
+      "uniqueMember": [
         "uid=manager1,ou=people,dc=example,dc=com"
       ],
       "description": "Management team"
     },
     {
       "dn": "cn=accounting,ou=groups,dc=example,dc=com",
-      "objectClass": ["groupOfNames"],
+      "objectClass": ["groupOfUniqueNames"],
       "cn": "accounting",
-      "member": [
+      "uniqueMember": [
         "uid=accountant1,ou=people,dc=example,dc=com",
         "uid=accountant2,ou=people,dc=example,dc=com"
       ],
@@ -52,7 +52,7 @@
     },
     {
       "dn": "uid=admin_user,ou=people,dc=example,dc=com",
-      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "objectClass": ["inetOrgPerson", "posixAccount", "ADUser"],
       "uid": "admin_user",
       "cn": "Admin User",
       "sn": "User",
@@ -61,11 +61,16 @@
       "userPassword": "secret123",
       "uidNumber": "1000",
       "gidNumber": "100",
-      "homeDirectory": "/home/admin_user"
+      "homeDirectory": "/home/admin_user",
+      "sAMAccountName": "admin.user",
+      "whenCreated": "20240819080000Z",
+      "whenChanged": "20240819120000Z",
+      "pwdLastSet": "133042932000000000",
+      "lastLogon": "133042935000000000"
     },
     {
       "dn": "uid=dev1,ou=people,dc=example,dc=com",
-      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "objectClass": ["inetOrgPerson", "posixAccount", "ADUser"],
       "uid": "dev1",
       "cn": "Developer One",
       "sn": "One",
@@ -74,11 +79,16 @@
       "userPassword": "dev123",
       "uidNumber": "1001",
       "gidNumber": "101",
-      "homeDirectory": "/home/dev1"
+      "homeDirectory": "/home/dev1",
+      "sAMAccountName": "dev.one",
+      "whenCreated": "20240819080100Z",
+      "whenChanged": "20240819120100Z",
+      "pwdLastSet": "133042932100000000",
+      "lastLogon": "133042935100000000"
     },
     {
       "dn": "uid=dev2,ou=people,dc=example,dc=com",
-      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "objectClass": ["inetOrgPerson", "posixAccount", "ADUser"],
       "uid": "dev2",
       "cn": "Developer Two",
       "sn": "Two",
@@ -87,11 +97,16 @@
       "userPassword": "dev123",
       "uidNumber": "1002",
       "gidNumber": "101",
-      "homeDirectory": "/home/dev2"
+      "homeDirectory": "/home/dev2",
+      "sAMAccountName": "dev.two",
+      "whenCreated": "20240819080200Z",
+      "whenChanged": "20240819120200Z",
+      "pwdLastSet": "133042932200000000",
+      "lastLogon": "133042935200000000"
     },
     {
       "dn": "uid=manager1,ou=people,dc=example,dc=com",
-      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "objectClass": ["inetOrgPerson", "posixAccount", "ADUser"],
       "uid": "manager1",
       "cn": "Manager One",
       "sn": "One",
@@ -100,11 +115,16 @@
       "userPassword": "mgr123",
       "uidNumber": "1003",
       "gidNumber": "102",
-      "homeDirectory": "/home/manager1"
+      "homeDirectory": "/home/manager1",
+      "sAMAccountName": "manager.one",
+      "whenCreated": "20240819080300Z",
+      "whenChanged": "20240819120300Z",
+      "pwdLastSet": "133042932300000000",
+      "lastLogon": "133042935300000000"
     },
     {
       "dn": "uid=accountant1,ou=people,dc=example,dc=com",
-      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "objectClass": ["inetOrgPerson", "posixAccount", "ADUser"],
       "uid": "accountant1",
       "cn": "Accountant One",
       "sn": "One",
@@ -114,11 +134,16 @@
       "uidNumber": "1004",
       "gidNumber": "103",
       "homeDirectory": "/home/accountant1",
-      "description": "Senior accountant"
+      "description": "Senior accountant",
+      "sAMAccountName": "accountant.one",
+      "whenCreated": "20240819080400Z",
+      "whenChanged": "20240819120400Z",
+      "pwdLastSet": "133042932400000000",
+      "lastLogon": "133042935400000000"
     },
     {
       "dn": "uid=accountant2,ou=people,dc=example,dc=com",
-      "objectClass": ["inetOrgPerson", "posixAccount"],
+      "objectClass": ["inetOrgPerson", "posixAccount", "ADUser"],
       "uid": "accountant2",
       "cn": "Accountant Two",
       "sn": "Two",
@@ -128,7 +153,12 @@
       "uidNumber": "1005",
       "gidNumber": "103",
       "homeDirectory": "/home/accountant2",
-      "description": "Junior accountant"
+      "description": "Junior accountant",
+      "sAMAccountName": "accountant.two",
+      "whenCreated": "20240819080500Z",
+      "whenChanged": "20240819120500Z",
+      "pwdLastSet": "133042932500000000",
+      "lastLogon": "133042935500000000"
     }
   ]
 }

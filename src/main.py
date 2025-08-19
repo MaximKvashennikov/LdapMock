@@ -44,10 +44,16 @@ def add_entry(request: Request, entry: LdapEntry):
     summary="Поиск записей в LDAP",
     response_description="Список найденных записей"
 )
-def search_entries(request: Request, base_dn: str, query: str = "(objectClass=*)"):
+def search_entries(
+        request: Request,
+        base_dn: str,
+        query: str = "(objectClass=*)",
+        attributes: str = None
+):
     ldap = request.app.state.ldap
     try:
-        return ldap.search(base_dn, query)
+        requested_attributes = attributes.split(',') if attributes else None
+        return ldap.search(base_dn, query, requested_attributes)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Search operation failed: {e}")
 
