@@ -66,7 +66,8 @@
       "whenCreated": "20240819080000Z",
       "whenChanged": "20240819120000Z",
       "pwdLastSet": "133042932000000000",
-      "lastLogon": "133042935000000000"
+      "lastLogon": "133042935000000000",
+      "distinguishedNameTest": "uid=admin_user,ou=people,dc=example,dc=com"
     },
     {
       "dn": "uid=dev1,ou=people,dc=example,dc=com",
@@ -84,7 +85,8 @@
       "whenCreated": "20240819080100Z",
       "whenChanged": "20240819120100Z",
       "pwdLastSet": "133042932100000000",
-      "lastLogon": "133042935100000000"
+      "lastLogon": "133042935100000000",
+      "distinguishedNameTest": "uid=dev1,ou=people,dc=example,dc=com"
     },
     {
       "dn": "uid=dev2,ou=people,dc=example,dc=com",
@@ -102,7 +104,8 @@
       "whenCreated": "20240819080200Z",
       "whenChanged": "20240819120200Z",
       "pwdLastSet": "133042932200000000",
-      "lastLogon": "133042935200000000"
+      "lastLogon": "133042935200000000",
+      "distinguishedNameTest": "uid=dev2,ou=people,dc=example,dc=com"
     },
     {
       "dn": "uid=manager1,ou=people,dc=example,dc=com",
@@ -120,7 +123,8 @@
       "whenCreated": "20240819080300Z",
       "whenChanged": "20240819120300Z",
       "pwdLastSet": "133042932300000000",
-      "lastLogon": "133042935300000000"
+      "lastLogon": "133042935300000000",
+      "distinguishedNameTest": "uid=manager1,ou=people,dc=example,dc=com"
     },
     {
       "dn": "uid=accountant1,ou=people,dc=example,dc=com",
@@ -139,7 +143,8 @@
       "whenCreated": "20240819080400Z",
       "whenChanged": "20240819120400Z",
       "pwdLastSet": "133042932400000000",
-      "lastLogon": "133042935400000000"
+      "lastLogon": "133042935400000000",
+      "distinguishedNameTest": "uid=accountant1,ou=people,dc=example,dc=com"
     },
     {
       "dn": "uid=accountant2,ou=people,dc=example,dc=com",
@@ -158,7 +163,8 @@
       "whenCreated": "20240819080500Z",
       "whenChanged": "20240819120500Z",
       "pwdLastSet": "133042932500000000",
-      "lastLogon": "133042935500000000"
+      "lastLogon": "133042935500000000",
+      "distinguishedNameTest": "uid=accountant2,ou=people,dc=example,dc=com"
     }
   ]
 }

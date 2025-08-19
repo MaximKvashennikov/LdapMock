@@ -10,10 +10,15 @@ olcAttributeTypes: ( 1.2.840.113556.1.4.102 NAME 'sAMAccountName'
   EQUALITY caseIgnoreMatch
   SUBSTR caseIgnoreSubstringsMatch
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+olcAttributeTypes: ( 1.2.840.113556.1.2.49 NAME 'distinguishedNameTest'
+  DESC 'Distinguished name'
+  EQUALITY distinguishedNameMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+  SINGLE-VALUE )
 olcObjectClasses: ( 1.2.840.113556.1.5.100
   NAME 'ADUser'
   DESC 'Custom AD-style user'
   SUP inetOrgPerson
   STRUCTURAL
-  MAY ( whenCreated $ whenChanged $ lastLogon $ pwdLastSet $ sAMAccountName )
+  MAY ( whenCreated $ whenChanged $ lastLogon $ pwdLastSet $ sAMAccountName $ distinguishedNameTest )
  )
