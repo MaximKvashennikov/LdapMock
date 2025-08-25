@@ -19,7 +19,7 @@ class LdapService:
             host=settings.ldap_mock_server_host,
             port=settings.ldap_mock_port,
             get_info=ALL,
-            use_ssl=True,
+            use_ssl=False,
             connect_timeout=50
         )
         self.conn = Connection(
